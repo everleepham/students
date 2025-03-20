@@ -1,0 +1,16 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+branch_name=$(git symbolic-ref --short HEAD)
+
+prefixes_allowed="feat|fix|test|chore"
+
+if !echo "$branch_name" | grep -Eq "^($allowed_prefixes)/.+$"; then
+  echo "Invalid branch name: '$branch_name'"
+  echo "Branch names must follow the format: <type>/<description>"
+  echo "Allowed types: feat, fix, test, chore"
+  exit 1
+fi
+
+echo "Valid branch name: '$branch_name'"
+exit 0
